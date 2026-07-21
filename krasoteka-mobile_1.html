@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Красотека — студия перманентного макияжа и бровей</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE4D8;
+    --card: #F8F3EA;
+    --ink: #221510;
+    --ink-soft: #4a3a32;
+    --wine: #7A2C2C;
+    --wine-deep: #5c2020;
+    --tan: #B4875A;
+    --line: #d8c9b3;
+    --line-soft: rgba(34,21,16,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--wine); color:var(--card); }
+
+  a{ color:inherit; }
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- texture ---------- */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:1;
+    opacity:.35;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(34,21,16,0.055) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(236,228,216,.86);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 0;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:.01em;
+  }
+  .brand span{ color:var(--wine); }
+  nav.links{ display:flex; gap:32px; align-items:center; }
+  nav.links a{
+    text-decoration:none;
+    font-size:14px;
+    color:var(--ink-soft);
+    letter-spacing:.02em;
+    transition:color .2s ease;
+  }
+  nav.links a:hover{ color:var(--wine); }
+  .cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    border:1px solid var(--ink);
+    padding:10px 18px;
+    border-radius:2px;
+    text-decoration:none;
+    color:var(--ink);
+    transition: all .25s ease;
+    white-space:nowrap;
+  }
+  .cta:hover{ background:var(--ink); color:var(--card); }
+
+  .burger{ display:none; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:88px 0 60px;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--wine);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px; height:1px;
+    background:var(--wine);
+    display:inline-block;
+  }
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(40px, 5.4vw, 68px);
+    line-height:1.02;
+    margin:0 0 22px;
+    letter-spacing:-.01em;
+  }
+  h1.title em{
+    font-style:italic;
+    color:var(--wine);
+    position:relative;
+    white-space:nowrap;
+  }
+  .underline-svg{
+    display:block;
+    margin-top:-6px;
+    width:230px;
+    max-width:60%;
+  }
+  .underline-svg path{
+    stroke:var(--wine);
+    stroke-width:3;
+    fill:none;
+    stroke-linecap:round;
+    stroke-dasharray:400;
+    stroke-dashoffset:400;
+    animation:draw 1.4s .5s ease forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .lede{
+    font-size:17px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:460px;
+    margin-bottom:34px;
+  }
+  .hero-actions{ display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--wine);
+    color:var(--card);
+    text-decoration:none;
+    padding:14px 26px;
+    border-radius:2px;
+    font-size:14.5px;
+    font-weight:600;
+    letter-spacing:.01em;
+    transition: background .25s ease, transform .2s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{ background:var(--wine-deep); transform:translateY(-1px); }
+  .btn-ghost{
+    text-decoration:none;
+    font-size:14px;
+    color:var(--ink);
+    border-bottom:1px solid var(--tan);
+    padding-bottom:2px;
+  }
+
+  /* ---------- index card (signature element) ---------- */
+  .card-wrap{
+    display:flex;
+    justify-content:center;
+    position:relative;
+  }
+  .index-card{
+    position:relative;
+    width:100%;
+    max-width:340px;
+    background:var(--card);
+    border:1px solid var(--ink);
+    border-radius:3px;
+    padding:30px 26px 26px;
+    box-shadow: 10px 10px 0 rgba(122,44,44,0.14), 0 1px 0 rgba(0,0,0,0.02);
+    transform:rotate(2deg);
+    transition: transform .35s ease;
+  }
+  .index-card:hover{ transform:rotate(0deg) translateY(-2px); }
+  .index-card::before{
+    content:"";
+    position:absolute;
+    top:20px; left:50%;
+    transform:translateX(-50%);
+    width:34px; height:10px;
+    border-radius:0 0 20px 20px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-top:none;
+  }
+  .card-top{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    letter-spacing:.05em;
+    margin-bottom:22px;
+    padding-top:6px;
+  }
+  .card-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--wine);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:8px;
+  }
+  .card-eyebrow::before{
+    content:"";
+    width:16px; height:1px;
+    background:var(--wine);
+    display:inline-block;
+  }
+  .card-title{
+    font-family:'Fraunces', serif;
+    font-size:26px;
+    font-weight:500;
+    margin:0 0 4px;
+  }
+  .card-sub{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .card-rule{ border:none; border-top:1px dashed var(--line); margin:16px 0; }
+  .card-list{ list-style:none; padding:0; margin:0; }
+  .card-list li{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    padding:6px 0;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .card-list li:last-child{ border-bottom:none; }
+  .card-list li b{ color:var(--ink); font-weight:500; }
+
+  /* ---------- category tabs ---------- */
+  .tabs-section{
+    padding:10px 0 6px;
+    border-top:1px solid var(--line-soft);
+  }
+  .tabs{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:26px 0;
+  }
+  .tab{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.03em;
+    text-decoration:none;
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+    padding:8px 16px;
+    border-radius:20px;
+    transition: all .2s ease;
+    white-space:nowrap;
+  }
+  .tab:hover{ border-color:var(--wine); color:var(--wine); }
+
+  /* ---------- services ---------- */
+  .services{ padding:40px 0 20px; }
+  .category{
+    padding:56px 0;
+    border-top:1px solid var(--line-soft);
+    display:grid;
+    grid-template-columns: 280px 1fr;
+    gap:48px;
+    opacity:0; transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .category.in-view{ opacity:1; transform:translateY(0); }
+
+  .cat-head{ position:sticky; top:96px; align-self:start; }
+  .cat-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--wine);
+    letter-spacing:.1em;
+    margin-bottom:10px;
+    display:block;
+  }
+  .cat-name{
+    font-family:'Fraunces', serif;
+    font-size:32px;
+    font-weight:500;
+    margin:0 0 10px;
+    line-height:1.08;
+  }
+  .cat-desc{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    max-width:230px;
+  }
+
+  .item-list{ display:flex; flex-direction:column; }
+  .item{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    padding:18px 0;
+    border-bottom:1px solid var(--line-soft);
+    cursor:default;
+  }
+  .item:first-child{ padding-top:0; }
+  .item-name{
+    font-size:16.5px;
+    font-weight:500;
+    white-space:nowrap;
+  }
+  .item-leader{
+    flex:1;
+    border-bottom:1px dotted var(--line);
+    position:relative;
+    top:-4px;
+    transition:border-color .25s ease;
+  }
+  .item-price{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+    color:var(--wine);
+    white-space:nowrap;
+    transition: transform .2s ease;
+  }
+  .item:hover .item-leader{ border-color:var(--wine); }
+  .item:hover .item-price{ transform:translateX(-2px); }
+  .item:hover .item-name{ color:var(--wine-deep); }
+
+  /* ---------- strip / quote ---------- */
+  .strip{
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+    padding:64px 0;
+    margin:20px 0;
+    text-align:center;
+  }
+  .strip p{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:clamp(20px,2.6vw,28px);
+    max-width:640px;
+    margin:0 auto;
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .strip span{ color:var(--wine); }
+
+  /* ---------- contacts / footer ---------- */
+  footer{ padding:64px 0 40px; }
+  .foot-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap:40px;
+    padding-bottom:40px;
+  }
+  .foot-brand{
+    font-family:'Fraunces', serif;
+    font-size:26px;
+    font-weight:600;
+  }
+  .foot-brand span{ color:var(--wine); }
+  .foot-lede{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-top:14px;
+    max-width:280px;
+    line-height:1.6;
+  }
+  .foot-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--tan);
+    margin-bottom:14px;
+    display:block;
+  }
+  .foot-col a, .foot-col p{
+    display:block;
+    text-decoration:none;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+    line-height:1.5;
+  }
+  .foot-col a:hover{ color:var(--wine); }
+  .foot-bottom{
+    border-top:1px solid var(--line-soft);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px){
+    .hero{ grid-template-columns:1fr; padding-top:56px; }
+    .card-wrap{ order:-1; margin-bottom:10px; }
+    .index-card{ transform:rotate(1deg); max-width:300px; }
+    .category{ grid-template-columns:1fr; gap:18px; }
+    .cat-head{ position:static; }
+    .cat-desc{ max-width:100%; }
+    .foot-grid{ grid-template-columns:1fr; gap:28px; }
+    nav.links{ display:none; }
+    .wrap{ padding:0 20px; }
+  }
+
+  @media (max-width:520px){
+    .item{ flex-wrap:wrap; }
+    .item-leader{ display:none; }
+    .item-name{ white-space:normal; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  /* ---------- mobile-only: sticky call bar ---------- */
+  body{ padding-bottom:78px; }
+  .nav .links{ display:none; }
+  .nav .cta{ display:none; }
+  .hero{ padding-top:40px; grid-template-columns:1fr; text-align:left; }
+  .card-wrap{ order:-1; margin-bottom:8px; }
+  .index-card{ transform:rotate(0deg); max-width:100%; box-shadow:6px 6px 0 rgba(122,44,44,0.14); }
+  .index-card:hover{ transform:none; }
+  .lede{ max-width:100%; }
+  .underline-svg{ max-width:44%; }
+
+  .tabs{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding:20px 0;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab{ flex:0 0 auto; }
+
+  .category{ grid-template-columns:1fr; gap:14px; padding:40px 0; }
+  .cat-head{ position:static; }
+  .cat-desc{ max-width:100%; }
+  .cat-name{ font-size:26px; }
+
+  .item{ padding:16px 0; }
+  .item-leader{ display:none; }
+  .item{ justify-content:space-between; }
+  .item-name{ white-space:normal; font-size:15.5px; }
+  .item-price{ font-size:14px; }
+
+  .foot-grid{ grid-template-columns:1fr; gap:26px; }
+  .foot-bottom{ flex-direction:column; }
+
+  .call-bar{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    z-index:60;
+    background:var(--card);
+    border-top:1px solid var(--line-soft);
+    padding:12px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 -4px 16px rgba(34,21,16,0.08);
+  }
+  .call-bar-info{ flex:1; min-width:0; }
+  .call-bar-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--tan);
+    display:block;
+    margin-bottom:2px;
+  }
+  .call-bar-name{ font-size:14px; font-weight:600; color:var(--ink); }
+  .call-bar-btn{
+    background:var(--wine);
+    color:var(--card);
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    padding:12px 20px;
+    border-radius:2px;
+    white-space:nowrap;
+    flex:0 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">Красо<span>тека</span></div>
+    <nav class="links">
+      <a href="#services">Услуги</a>
+      <a href="#about">О студии</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="cta" href="tel:+79027633047">Записаться</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div>
+      <div class="eyebrow">Студия перманентного макияжа</div>
+      <h1 class="title">
+        Каталог твоей<br><em>красоты</em>
+        <svg class="underline-svg" viewBox="0 0 230 14" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 10 C 60 2, 170 2, 228 9"/>
+        </svg>
+      </h1>
+      <p class="lede">Брови, губы, веки и кожа — каждая процедура записана, взвешена и пронумерована, как карточка в хорошей библиотеке. Ничего лишнего, только то, что вам идёт.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="tel:+79027633047">Записаться к Анне</a>
+        <a class="btn-ghost" href="#services">Смотреть услуги</a>
+      </div>
+    </div>
+
+    <div class="card-wrap">
+      <div class="index-card">
+        <div class="card-top">
+          <span>КК—001</span>
+          <span>КРАСОТЕКА</span>
+        </div>
+        <div class="card-eyebrow">Мастер</div>
+        <div class="card-title">Анна Тубукаева</div>
+        <div class="card-sub">8 902 763-30-47</div>
+        <hr class="card-rule">
+        <ul class="card-list">
+          <li><span>Брови, комбинированная</span> <b>12 000 ₽</b></li>
+          <li><span>Губы, контур с градиентом</span> <b>8 000 ₽</b></li>
+          <li><span>Веки, стрелка</span> <b>9 000 ₽</b></li>
+          <li><span>Ламинирование бровей</span> <b>3 000 ₽</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="tabs-section wrap">
+    <div class="tabs">
+      <a class="tab" href="#cat-01">01 · Перманентный макияж бровей</a>
+      <a class="tab" href="#cat-02">02 · Брови</a>
+      <a class="tab" href="#cat-03">03 · Губы</a>
+      <a class="tab" href="#cat-04">04 · Веки</a>
+      <a class="tab" href="#cat-05">05 · Макияж</a>
+      <a class="tab" href="#cat-06">06 · Другое</a>
+    </div>
+  </section>
+
+  <section class="services wrap" id="services">
+
+    <div class="category" id="cat-01">
+      <div class="cat-head">
+        <span class="cat-num">01 / Раздел</span>
+        <h2 class="cat-name">Перманентный макияж бровей</h2>
+        <p class="cat-desc">Три техники введения пигмента — от плотного объёма до лёгкой пудровой дымки.</p>
+      </div>
+      <div class="item-list">
+        <div class="item"><span class="item-name">Комбинированная техника</span><span class="item-leader"></span><span class="item-price">12 000 ₽</span></div>
+        <div class="item"><span class="item-name">Волосковая техника</span><span class="item-leader"></span><span class="item-price">10 000 ₽</span></div>
+        <div class="item"><span class="item-name">Пудровое напыление</span><span class="item-leader"></span><span class="item-price">8 000 ₽</span></div>
+      </div>
+    </div>
+
+    <div class="category" id="cat-02">
+      <div class="cat-head">
+        <span class="cat-num">02 / Раздел</span>
+        <h2 class="cat-name">Брови</h2>
+        <p class="cat-desc">Форма, цвет и структура волоска — базовый уход без пигмента.</p>
+      </div>
+      <div class="item-list">
+        <div class="item"><span class="item-name">Ламинирование бровей</span><span class="item-leader"></span><span class="item-price">3 000 ₽</span></div>
+        <div class="item"><span class="item-name">Комплекс: оформление + окрашивание</span><span class="item-leader"></span><span class="item-price">1 200 ₽</span></div>
+        <div class="item"><span class="item-name">Окрашивание бровей</span><span class="item-leader"></span><span class="item-price">800 ₽</span></div>
+        <div class="item"><span class="item-name">Оформление бровей</span><span class="item-leader"></span><span class="item-price">800 ₽</span></div>
+      </div>
+    </div>
+
+    <div class="category" id="cat-03">
+      <div class="cat-head">
+        <span class="cat-num">03 / Раздел</span>
+        <h2 class="cat-name">Губы</h2>
+        <p class="cat-desc">Перманент губ — от мягкого акварельного тона до насыщенной помадной заливки.</p>
+      </div>
+      <div class="item-list">
+        <div class="item"><span class="item-name">Контур с градиентом</span><span class="item-leader"></span><span class="item-price">8 000 ₽</span></div>
+        <div class="item"><span class="item-name">Акварельный эффект</span><span class="item-leader"></span><span class="item-price">8 000 ₽</span></div>
+        <div class="item"><span class="item-name">Помадный прокрас</span><span class="item-leader"></span><span class="item-price">10 000 ₽</span></div>
+      </div>
+    </div>
+
+    <div class="category" id="cat-04">
+      <div class="cat-head">
+        <span class="cat-num">04 / Раздел</span>
+        <h2 class="cat-name">Веки</h2>
+        <p class="cat-desc">Межресничный прокрас и стрелка — перманентный акцент для взгляда.</p>
+      </div>
+      <div class="item-list">
+        <div class="item"><span class="item-name">Стрелка</span><span class="item-leader"></span><span class="item-price">9 000 ₽</span></div>
+        <div class="item"><span class="item-name">Межресничка</span><span class="item-leader"></span><span class="item-price">7 000 ₽</span></div>
+      </div>
+    </div>
+
+    <div class="category" id="cat-05">
+      <div class="cat-head">
+        <span class="cat-num">05 / Раздел</span>
+        <h2 class="cat-name">Макияж</h2>
+        <p class="cat-desc">Дневной и вечерний макияж, а ещё урок, после которого он получится и у вас.</p>
+      </div>
+      <div class="item-list">
+        <div class="item"><span class="item-name">Урок макияжа «для себя»</span><span class="item-leader"></span><span class="item-price">5 000 ₽</span></div>
+        <div class="item"><span class="item-name">Макияж</span><span class="item-leader"></span><span class="item-price">2 000 ₽</span></div>
+      </div>
+    </div>
+
+    <div class="category" id="cat-06">
+      <div class="cat-head">
+        <span class="cat-num">06 / Раздел</span>
+        <h2 class="cat-name">Другое</h2>
+        <p class="cat-desc">Точечные и деликатные процедуры пигментации.</p>
+      </div>
+      <div class="item-list">
+        <div class="item"><span class="item-name">Трихопигментация</span><span class="item-leader"></span><span class="item-price">8 000 ₽</span></div>
+        <div class="item"><span class="item-name">Ареолы сосков</span><span class="item-leader"></span><span class="item-price">от 15 000 ₽</span></div>
+        <div class="item"><span class="item-name">Родинка (мушка)</span><span class="item-leader"></span><span class="item-price">3 000 ₽</span></div>
+        <div class="item"><span class="item-name">Веснушки</span><span class="item-leader"></span><span class="item-price">15 000 ₽</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="strip wrap" id="about">
+    <p>Красотека — это не салон, а <span>картотека</span> проверенных техник: каждая процедура подобрана под форму лица и структуру кожи, а не «по каталогу».</p>
+  </section>
+</main>
+
+<footer id="contacts">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Красо<span>тека</span></div>
+        <p class="foot-lede">Студия перманентного макияжа и бровей. Запись открыта ежедневно, приходите с чистой кожей и хорошим настроением.</p>
+      </div>
+      <div class="foot-col">
+        <span class="foot-label">Мастер</span>
+        <p style="color:var(--ink); font-weight:600; margin-bottom:6px;">Анна Тубукаева</p>
+        <a href="tel:+79027633047">8 902 763-30-47</a>
+        <p>Байкальская улица, 320/1</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Красотека</span>
+      <span>Карточка КК—001</span>
+    </div>
+  </div>
+</footer>
+
+<div class="call-bar">
+  <div class="call-bar-info">
+    <span class="call-bar-label">Мастер</span>
+    <span class="call-bar-name">Анна Тубукаева</span>
+  </div>
+  <a class="call-bar-btn" href="tel:+79027633047">Позвонить</a>
+</div>
+
+<script>
+  const items = document.querySelectorAll('.category');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in-view'); });
+  }, { threshold: 0.12 });
+  items.forEach(i => io.observe(i));
+</script>
+
+</body>
+</html>
